@@ -1,0 +1,14 @@
+header{
+    border-bottom: solid black .8px;
+    text-align: center;
+    display: flex;
+    justify-content:space-between;
+}
+
+h3{
+    margin: 0;
+}
+
+p{
+    margin: 0;
+}

@@ -1,0 +1,20 @@
+.prodCard{
+    display: flex;
+    flex-direction: row;
+    border:solid rgb(113, 105, 105) 1px;
+    width: 70vw;
+    height: 340px;
+    text-align: center;
+}
+
+img{
+    width: 200px;
+    height: 200px;
+}
+
+.imgContainer{
+    border-right: solid black 1px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}

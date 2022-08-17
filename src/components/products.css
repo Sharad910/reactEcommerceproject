@@ -1,0 +1,15 @@
+.product{
+    display:block;
+}
+
+#prodPgContainer{
+    display: flex;
+    justify-content:flex-start;
+}
+
+#filters{
+    width: 12vw;
+    border-right: solid black 0.8px;
+    margin-right: 25px;
+    text-align: center;
+}
