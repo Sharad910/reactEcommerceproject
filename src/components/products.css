@@ -1,5 +1,6 @@
 .product{
     display:block;
+    background-color: rgb(226, 226, 226);
 }
 
 #prodPgContainer{
@@ -12,4 +13,9 @@
     border-right: solid black 0.8px;
     margin-right: 25px;
     text-align: center;
+    position: sticky;
+    top: 59px;
+    z-index: 999;
+    height: 500px;
+    background-color:  rgb(226, 226, 226);
 }

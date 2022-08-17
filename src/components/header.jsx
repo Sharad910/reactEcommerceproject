@@ -5,12 +5,12 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 function Header(){
     return(<header>
         <div>
-        <h3>FakeStore</h3>
-        <p>for the window shoppers &#128521;</p>
+        <h3 id="brandname">FakeStore</h3>
+        <p id="tagline">for the window shoppers &#128521;</p>
         </div>
         <div>
         <Button endIcon={<ShoppingCartIcon/>}>cart</Button>
-        <p>cart value</p>
+        <p id="cartval">cart value</p>
         </div>
     </header>);
 }
