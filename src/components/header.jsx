@@ -1,11 +1,12 @@
 import React from "react";
-import "./header.css";
+import "./styles/header.css";
 import {Button} from "@mui/material";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import {Link} from "react-router-dom";
 function Header(){
     return(<header>
         <div>
-        <h3 id="brandname">FakeStore</h3>
+        <Link to="/" style={{textDecorationLine:"none"}}><h3 id="brandname">FakeStore</h3></Link>
         <p id="tagline">for the window shoppers &#128521;</p>
         </div>
         <div>

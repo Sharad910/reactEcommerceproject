@@ -9,3 +9,9 @@ export const prodCategory=async()=>{
     let data=await res.json();
     return data;
 }
+
+export const prodId=async(id)=>{
+    const res=await fetch(`https://fakestoreapi.com/products/${id}`);
+    let data=await res.json();
+    return data;
+}

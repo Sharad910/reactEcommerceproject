@@ -1,8 +1,8 @@
 import React from "react";
-import "./prodcard.css";
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import "./styles/prodcard.css";
 import {Button} from "@mui/material";
-import InventorySharpIcon from '@mui/icons-material/InventorySharp';
+import {Link} from "react-router-dom";
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 function Card(props){
     return(
     <div className="proda">
@@ -10,13 +10,13 @@ function Card(props){
             <div className="imgContainer">
             <img alt="product" src={props.imgsrc}></img>
             <p>{props.price}$</p>
-            <Button variant="outlined" endIcon={<InventorySharpIcon/>}>buy now</Button>
-            <Button variant="outlined" endIcon={<AddShoppingCartIcon/>}>add to cart</Button>
+            <Link style={{textDecorationLine:"none"}} to={`/${props.id}`}>
+            <Button variant="outlined" endIcon={<KeyboardArrowRightIcon/>}>View More</Button>
+            </Link>
             </div>
             <div>
             <h3>{props.name}</h3>
             <p>{props.desc}</p>
-            
             </div>
         </div>
     </div>
