@@ -13,9 +13,20 @@ header{
 #brandname{
     color: white;
     margin: 0;
+    margin-left: 40px;
+    text-align: left;
 }
 
-#tagline,#cartval{
+#tagline{
+    color: rgb(237, 226, 8);
+    margin: 0;
+    margin-left: 40px;
+}
+#cartval{
     color: white;
     margin: 0;
+    margin-right: 40px;
+}
+#cartButton{
+    margin-right: 40px;
 }

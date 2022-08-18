@@ -9,7 +9,7 @@ function Header(){
         <p id="tagline">for the window shoppers &#128521;</p>
         </div>
         <div>
-        <Button endIcon={<ShoppingCartIcon/>}>cart</Button>
+        <Button id="cartButton"endIcon={<ShoppingCartIcon/>}>cart</Button>
         <p id="cartval">cart value</p>
         </div>
     </header>);
