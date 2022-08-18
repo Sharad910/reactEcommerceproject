@@ -1,0 +1,32 @@
+header{
+    border-bottom: solid black .8px;
+    text-align: center;
+    display: flex;
+    justify-content:space-between;
+    position: sticky;
+    top: 0;
+    background: rgb(15, 15, 78);
+    z-index: 999;
+    
+}
+
+#brandname{
+    color: white;
+    margin: 0;
+    margin-left: 40px;
+    text-align: left;
+}
+
+#tagline{
+    color: rgb(237, 226, 8);
+    margin: 0;
+    margin-left: 40px;
+}
+#cartval{
+    color: white;
+    margin: 0;
+    margin-right: 40px;
+}
+#cartButton{
+    margin-right: 40px;
+}
