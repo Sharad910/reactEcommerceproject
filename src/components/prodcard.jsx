@@ -9,7 +9,7 @@ function Card(props){
         <div className="prodCard">
             <div className="imgContainer">
             <img alt="product" src={props.imgsrc}></img>
-            <p>{props.price}$</p>
+            <h4>{props.price}$</h4>
             <Link style={{textDecorationLine:"none"}} to={`/${props.id}`}>
             <Button variant="outlined" endIcon={<KeyboardArrowRightIcon/>}>View More</Button>
             </Link>
