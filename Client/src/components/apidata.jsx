@@ -15,3 +15,15 @@ export const prodId=async(id)=>{
     let data=await res.json();
     return data;
 }
+
+export const Cartdata=async()=>{
+    const res= await fetch('/cart');
+    let data =await res.json();
+    return data;
+}
+
+export const Cartvalue=async()=>{
+    const res= await fetch('/cartItems');
+    let data =await res.json();
+    return data;
+}

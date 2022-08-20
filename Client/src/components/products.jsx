@@ -19,7 +19,7 @@ function Products() {
   useEffect(() => {
     prodData()
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setProds(data);
         setProdbycat(data);
         // setshowProd(true);
@@ -28,14 +28,14 @@ function Products() {
         console.log(e);
       });
     prodCategory().then((data) => {
-      console.log(data);
+      // console.log(data);
       setCategories(data);
       setshowProd(true);
     });
   }, []);
 
   function filterCat(event) {
-    console.log(event.target.value);
+    // console.log(event.target.value);
     if (event.target.value === "show") {
       setProdbycat(prods);
     } else {
