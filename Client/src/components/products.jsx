@@ -66,7 +66,7 @@ function Products() {
                   },'& .JoyRadio-radio:hover': {
                     bgcolor: 'white',
                   },
-            }}/>} value={cat} label={cat}/>;
+            }}/>} value={cat} label={cat} key={cat}/>;
             })}
             <FormControlLabel control={<Radio sx={{'& .JoyRadio-radio':{
                 marginLeft:"12px",marginRight:"3px"

@@ -10,9 +10,12 @@ import Tooltip from "@mui/material/Tooltip";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import cartContext from "../context/cart/cartContext";
+import loginContext from "../context/login/loginContext";
+
 
 function viewCart() {
   const cart=useContext(cartContext);
+  const logged=useContext(loginContext);
 
   async function checkout(){
     cart.setCartval(0);
@@ -26,16 +29,17 @@ function viewCart() {
   const [userCart, setUserCart] = useState([]);
   const [showcart, setshowCart] = useState(false);
   useEffect(() => {
+  if(logged.isLogged){
     Cartdata()
       .then((data) => {
-        // console.log(data);
         setUserCart(data);
         setshowCart(true);
       })
       .catch((e) => {
         console.log(e);
       });
-  }, []);
+    }
+  }, [logged.isLogged]);
 
   return showcart ? (
     <div id="cartContainer">
@@ -96,7 +100,7 @@ function viewCart() {
       </div>
     </div>
   ) : (
-    <p>Loading...</p>
+    <h4>{logged.isLogged?"Loading...":"Please login to view cart"}</h4>
   );
 }
 
