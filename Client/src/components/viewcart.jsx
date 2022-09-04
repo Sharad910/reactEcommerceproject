@@ -11,17 +11,19 @@ import { Link } from "react-router-dom";
 import { useContext } from "react";
 import cartContext from "../context/cart/cartContext";
 import loginContext from "../context/login/loginContext";
-
-
 function viewCart() {
+  
+  
   const cart=useContext(cartContext);
   const logged=useContext(loginContext);
 
-  async function checkout(){
+  
+   async function checkout(){
     cart.setCartval(0);
     await fetch('/checkout',{
       method:"POST",
-      headers: { 'Content-Type': 'application/json' },
+      headers: { "Content-Type": "application/json",
+                  Authorization:`Bearer ${logged.token}`},
       body: JSON.stringify({checkout:"success"})
     }).then().catch();
   }
@@ -30,7 +32,7 @@ function viewCart() {
   const [showcart, setshowCart] = useState(false);
   useEffect(() => {
   if(logged.isLogged){
-    Cartdata()
+    Cartdata(logged.token)
       .then((data) => {
         setUserCart(data);
         setshowCart(true);
@@ -39,7 +41,7 @@ function viewCart() {
         console.log(e);
       });
     }
-  }, [logged.isLogged]);
+  }, [logged.isLogged,logged.token]);
 
   return showcart ? (
     <div id="cartContainer">

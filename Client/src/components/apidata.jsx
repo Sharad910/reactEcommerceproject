@@ -16,14 +16,22 @@ export const prodId=async(id)=>{
     return data;
 }
 
-export const Cartdata=async()=>{
-    const res= await fetch('/cart');
+export const Cartdata=async(token)=>{
+    const res= await fetch('/cart',{
+        headers:{
+            Authorization:`Bearer ${token}`
+        }
+    });
     let data =await res.json();
     return data;
 }
 
-export const Cartvalue=async()=>{
-    const res= await fetch('/cartItems');
+export const Cartvalue=async(token)=>{
+    const res= await fetch('/cartItems',{
+        headers:{
+            Authorization:`Bearer ${token}`
+        }
+    });
     let data =await res.json();
     return data;
 }

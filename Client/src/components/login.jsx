@@ -19,13 +19,17 @@ export default function Login() {
       body: JSON.stringify({ name: `${user.name}`, email: `${user.email}` }),
     }).then(async (res) => {
       let data = await res.json();
-      if (data === "AuthenticationSuccess") {
+      console.log(data);
+      const {loginToken}=data;
+      // console.log(token);
+      if (data.text==="Authenticated") {
+        logged.setToken(loginToken);
         logged.setUserName(name);
         logged.setUserEmail(email);
-        let data = { name, email };
+        let data = { name, email,loginToken };
         localStorage.setItem("user", JSON.stringify(data));
         logged.setIsLogged(true);
-        Cartvalue()
+        Cartvalue(loginToken)
           .then((data) => {
             cart.setCartval(data.value);
           })

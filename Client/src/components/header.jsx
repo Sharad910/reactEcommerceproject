@@ -28,11 +28,13 @@ function Header() {
         }),
       }).then(async (res) => {
         let data = await res.json();
-        if (data === "AuthenticationSuccess") {
+        console.log(data);
+        if (data.text==="Authenticated") {
           logged.setUserName(userData.name);
           logged.setUserEmail(userData.email);
+          logged.setToken(data.loginToken);
           logged.setIsLogged(true);
-          Cartvalue()
+          Cartvalue(data.loginToken)
             .then((data) => {
               cart.setCartval(data.value);
             })

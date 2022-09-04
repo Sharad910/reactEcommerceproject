@@ -35,7 +35,8 @@ function viewProduct() {
   async function sendToCart() {
     await fetch("/addtocart", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json",
+                  Authorization:`Bearer ${logged.token}`},
       body: JSON.stringify({
         id: `${prod.id}`,
         title: `${prod.title}`,
@@ -46,7 +47,7 @@ function viewProduct() {
     })
       .then(async(res)=>{
       await res.json();
-      await Cartvalue()
+      await Cartvalue(logged.token)
       .then((data) => {
         cart.setCartval(data.value);
       })
