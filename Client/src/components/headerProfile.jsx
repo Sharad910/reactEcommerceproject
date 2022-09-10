@@ -24,12 +24,13 @@ export default function Headprofile() {
   };
 
   const logout = () => {
+    logged.setIsLogged(false);
     setAnchorEl(null);
     logged.setUserName("");
     logged.setUserEmail("");
     localStorage.clear();
     cart.setCartval(0);
-    logged.setIsLogged(false);
+    window.location.reload(false);
   };
   return logged.isLogged ? (
     <div>

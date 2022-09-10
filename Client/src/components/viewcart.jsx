@@ -11,9 +11,11 @@ import { Link } from "react-router-dom";
 import { useContext } from "react";
 import cartContext from "../context/cart/cartContext";
 import loginContext from "../context/login/loginContext";
+import { Cartvalue } from "./apidata";
 function viewCart() {
   
-  
+  const [userCart, setUserCart] = useState([]);
+  const [showcart, setshowCart] = useState(false);
   const cart=useContext(cartContext);
   const logged=useContext(loginContext);
 
@@ -28,8 +30,26 @@ function viewCart() {
     }).then().catch();
   }
 
-  const [userCart, setUserCart] = useState([]);
-  const [showcart, setshowCart] = useState(false);
+  async function Remove(id){
+    // cart.setCartval(0);
+    await fetch('/modifyCart',{
+      method:"POST",
+      headers: { "Content-Type": "application/json",
+                  Authorization:`Bearer ${logged.token}`},
+      body: JSON.stringify({id:id})
+    }).then(()=>{
+      Cartdata(logged.token)
+      .then((data) => {
+        setUserCart(data);
+        
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+    }).catch();
+  }
+
+  
   useEffect(() => {
   if(logged.isLogged){
     Cartdata(logged.token)
@@ -40,8 +60,13 @@ function viewCart() {
       .catch((e) => {
         console.log(e);
       });
+      Cartvalue(logged.token)
+            .then((data) => {
+              cart.setCartval(data.value);
+            })
+            .catch((e) => console.log(e));
     }
-  }, [logged.isLogged,logged.token]);
+  }, [cart, logged.isLogged, logged.token, userCart]);
 
   return showcart ? (
     <div id="cartContainer">
@@ -70,7 +95,7 @@ function viewCart() {
                     <p className="cartProdPrice">${prod.price}</p>
                   </div>
                   <Tooltip title="Remove from cart">
-                        <IconButton>
+                        <IconButton onClick={()=>{Remove(prod.id)}}>
                           <CancelIcon />
                         </IconButton>
                       </Tooltip>

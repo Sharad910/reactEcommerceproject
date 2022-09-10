@@ -41,8 +41,7 @@ function viewProduct() {
         id: `${prod.id}`,
         title: `${prod.title}`,
         price: `${prod.price}`,
-        image: `${prod.image}`,
-        email: `${logged.userEmail}`,
+        image: `${prod.image}`
       }),
     })
       .then(async(res)=>{

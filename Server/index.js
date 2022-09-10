@@ -52,11 +52,10 @@ const protect = asyncHandler(async (req, res, next) => {
   }
 })
 
-let userEmail = "";
 
 app.post("/login", (req, res) => {
   let userData = req.body;
-  userEmail = userData.email;
+  let userEmail = userData.email;
   User.findOne({ email: userData.email }).then(async (result) => {
     if (result) {
       const loginToken=await JWT.sign({userEmail},process.env.JWT_SECRET_KEY,{expiresIn:"15d"});
@@ -65,7 +64,7 @@ app.post("/login", (req, res) => {
       User.create({ name: userData.name, email: userData.email })
         .then(async() => {
           const loginToken=await JWT.sign({userEmail},process.env.JWT_SECRET_KEY,{expiresIn:"15d"});
-          res.json(loginToken);
+          res.json({loginToken,text:"Authenticated"});
         })
         .catch((e) => console.log(e));
     }
@@ -87,7 +86,7 @@ app.get("/cart",protect, async(req,res) => {
 app.get("/cartItems",protect,async(req, res) => {
   let token=req.headers.authorization.split(" ")[1];
   const data=await JWT.verify(token,process.env.JWT_SECRET_KEY);
-  User.findOne({ email: userEmail })
+  User.findOne({ email: data.userEmail })
     .then((user) => {
       if (user !== null) {
         res.json({ value: `${user.cart.length}` });
@@ -101,6 +100,7 @@ app.get("/cartItems",protect,async(req, res) => {
 app.post("/addtocart",protect, async(req, res) => {
   let token=req.headers.authorization.split(" ")[1];
   const user=await JWT.verify(token,process.env.JWT_SECRET_KEY);
+  let Email=user.userEmail;
   let data = req.body;
   let product = {
     id: data.id,
@@ -108,25 +108,39 @@ app.post("/addtocart",protect, async(req, res) => {
     price: data.price,
     image: data.image,
   };
-  User.findOne({ email: data.email }).then(async (result) => {
-    if (result) {
-      await result.updateOne({ $push: { cart: product } }).then(()=>{
-        res.json("cartUpdated");
-      });
-    } else {
-      console.log("user not registered");
+  User.findOne({"cart.id":data.id,email:Email}).then(async(user)=>{
+    if(user){
+      res.json("cartUpdated");
     }
-  });
+    else{User.findOne({ email: Email }).then(async (result) => {
+      if (result) {
+        await result.updateOne({ $push: { cart: product } }).then(()=>{
+          res.json("cartUpdated");
+        });
+      } else {
+        console.log("user not registered");
+      }
+    });}
+  })
 });
 
-app.post("/checkout",(req, res) => {
-  User.findOne({ email: userEmail }).then((user) => {
+app.post("/checkout",protect,async (req, res) => {
+  let token=req.headers.authorization.split(" ")[1];
+  const user=await JWT.verify(token,process.env.JWT_SECRET_KEY);
+  User.findOne({ email: user.userEmail }).then((user) => {
     user.updateOne({ $set: { cart: [] } }).then();
   });
 });
 
 
-
+app.post("/modifyCart",protect, async(req, res) => {
+  let token=req.headers.authorization.split(" ")[1];
+  const user=await JWT.verify(token,process.env.JWT_SECRET_KEY);
+  let Email=user.userEmail;
+  let data = req.body;
+  User.findOne({"cart.id":data.id,email:Email}).then(async(user)=>{
+   await user.updateOne({$pull:{cart:{id:data.id}}}).then(res.json("Removed")).catch((e)=>console.log(e));
+})})
 
 
 app.listen(8080, () => {
